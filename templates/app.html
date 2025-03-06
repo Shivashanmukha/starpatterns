@@ -1,0 +1,64 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Pattern Generator</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('/static/bg.jpg'); /* Path to your local image */
+            background-size: cover; /* Cover the entire page */
+            background-position: center; /* Center the background image */
+            background-repeat: no-repeat; /* Prevent repeating the image */
+            background-attachment: fixed; /* Keep the image fixed during scrolling */
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
+            height: 100%; /* Full viewport height */
+            width: 100%; /* Full viewport width */
+            color: #333; /* Optional: Set a default text color */
+        }
+        .pattern {
+            font-family: monospace;
+            white-space: pre;
+            background-color: #f8f9fa;
+            padding: 10px;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .letter {
+            display: inline-block;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container rounded" style="background-color: aqua;">
+        <h1 class="mt-5">Star Pattern Generator</h1>
+        <form method="POST" class="mt-3">
+            <div class="form-group">
+                <label for="word">Enter Word or Letter:</label>
+                <input type="text" id="word" name="word" class="form-control" value="{{ word }}">
+            </div>
+            <button type="submit" class="btn btn-primary">Generate Patterns</button>
+        </form>
+
+        {% if word %}
+            <h2 class="mt-5">Generated Patterns:</h2>
+            <div class="d-flex flex-wrap">
+                {% for letter in word %}
+                    {% if letter in patterns %}
+                        <div class="letter">
+                            <h3>{{ letter }}</h3>
+                            <pre class="pattern">{{ patterns[letter] | join('\n') }}</pre>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+        <a href="/" class="btn btn-secondary mt-3">Back to Home</a>
+    </div>
+</body>
+</html>
